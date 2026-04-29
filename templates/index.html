@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}VTOP - VIT Student Portal{% endblock %}
+{% block content %}
+<!-- Hero -->
+<section class="hero-section text-center">
+  <div class="container">
+    <div class="mb-4"><i class="bi bi-mortarboard-fill display-1"></i></div>
+    <h1>VIT on TOP</h1>
+    <p class="lead mb-4">Your gateway to academic excellence — access attendance, grades,<br class="d-none d-md-block"> timetables, and more from one unified portal.</p>
+    <a href="{{ url_for('login') }}" class="btn btn-vtop btn-lg"><i class="bi bi-box-arrow-in-right me-2"></i>Student Login</a>
+  </div>
+</section>
+
+<!-- Quick Links -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-2">Quick Access</h2>
+    <p class="text-center text-muted mb-5">Everything you need, one click away</p>
+    <div class="row g-4 justify-content-center">
+      {% set links = [
+        ("bi-calendar-check", "Attendance", "Track your class attendance across all courses"),
+        ("bi-clock", "Timetable", "View your weekly class schedule and slots"),
+        ("bi-award", "Grades", "Check your semester grades and CGPA"),
+        ("bi-person-badge", "Profile", "View and update your student profile"),
+        ("bi-cash-stack", "Fee Details", "Check fee payment status and receipts"),
+        ("bi-card-text", "Exam Hall Ticket", "Download your examination hall tickets")
+      ] %}
+      {% for icon, title, desc in links %}
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="card quick-card text-center p-4 h-100">
+          <div class="icon-circle"><i class="bi {{ icon }}"></i></div>
+          <h6 class="fw-bold">{{ title }}</h6>
+          <p class="text-muted small mb-0">{{ desc }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - VTOP{% endblock %}
+{% block content %}
+<!-- Mobile sidebar toggle -->
+<button class="btn btn-primary d-md-none position-fixed" id="sidebarToggle"
+  style="bottom:1rem;right:1rem;z-index:200;border-radius:50%;width:48px;height:48px">
+  <i class="bi bi-list fs-5"></i>
+</button>
+
+<!-- Sidebar -->
+<nav class="sidebar d-none d-md-block" id="sidebar">
+  <div class="p-3 border-bottom">
+    <div class="fw-bold text-primary">{{ student.name }}</div>
+    <small class="text-muted">{{ student.reg_no }}</small>
+  </div>
+  <ul class="nav flex-column py-2">
+    {% set nav = [
+      ("overview","bi-grid","Overview"),
+      ("attendance","bi-calendar-check","Attendance"),
+      ("timetable","bi-clock","Timetable"),
+      ("grades","bi-award","Grades"),
+      ("profile","bi-person","Profile"),
+      ("fees","bi-cash-stack","Fee Details"),
+      ("hallticket","bi-card-text","Hall Ticket"),
+    ] %}
+    {% for key, icon, label in nav %}
+    <li class="nav-item">
+      <a class="nav-link {{ 'active' if section==key }}" href="{{ url_for('dashboard_section', section=key) }}">
+        <i class="bi {{ icon }}"></i>{{ label }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+
+<!-- Main content -->
+<div class="dash-main">
+  {% if section == 'overview' %}
+  <!-- Stats row -->
+  <h4 class="fw-bold mb-4">Welcome back, {{ student.name.split()[0] }}! 👋</h4>
+  <div class="row g-3 mb-4">
+    {% set stats = [
+      ("bi-percent","Overall Attendance","85%","bg-primary bg-opacity-10 text-primary"),
+      ("bi-trophy","CGPA",student.cgpa,"bg-success bg-opacity-10 text-success"),
+      ("bi-book","Semester",student.semester,"bg-warning bg-opacity-10 text-warning"),
+      ("bi-building","Campus",student.campus,"bg-info bg-opacity-10 text-info"),
+    ] %}
+    {% for icon, label, val, cls in stats %}
+    <div class="col-6 col-lg-3">
+      <div class="card stat-card p-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="stat-icon {{ cls }}"><i class="bi {{ icon }}"></i></div>
+          <div>
+            <div class="text-muted small">{{ label }}</div>
+            <div class="fw-bold fs-5">{{ val }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="row g-4">
+    <!-- Attendance summary -->
+    <div class="col-lg-6">
+      <div class="card stat-card p-4">
+        <h6 class="fw-bold mb-3"><i class="bi bi-calendar-check me-2 text-primary"></i>Attendance Overview</h6>
+        {% for a in attendance %}
+        <div class="mb-3">
+          <div class="d-flex justify-content-between small fw-semibold mb-1">
+            <span>{{ a.name }}</span><span>{{ a.pct }}%</span>
+          </div>
+          <div class="progress {{ 'progress-good' if a.pct>=85 else ('progress-warn' if a.pct>=75 else 'progress-bad') }}" style="height:8px">
+            <div class="progress-bar" style="width:{{ a.pct }}%"></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- Recent grades -->
+    <div class="col-lg-6">
+      <div class="card stat-card p-4">
+        <h6 class="fw-bold mb-3"><i class="bi bi-award me-2 text-success"></i>Recent Grades</h6>
+        <table class="table table-vtop table-sm mb-0">
+          <thead><tr><th>Course</th><th>Credits</th><th>Grade</th></tr></thead>
+          <tbody>
+          {% for g in grades %}
+          <tr><td class="small">{{ g.name }}</td><td>{{ g.credits }}</td>
+          <td><span class="badge bg-{{ 'success' if g.grade in ['S','A+','A'] else 'primary' }}">{{ g.grade }}</span></td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% elif section == 'attendance' %}
+  <h4 class="fw-bold mb-4"><i class="bi bi-calendar-check me-2"></i>Attendance Details</h4>
+  <div class="card stat-card p-4">
+    <table class="table table-vtop table-hover mb-0">
+      <thead><tr><th>Code</th><th>Course</th><th>Total</th><th>Attended</th><th>%</th><th>Status</th></tr></thead>
+      <tbody>
+      {% for a in attendance %}
+      <tr>
+        <td class="fw-semibold">{{ a.code }}</td><td>{{ a.name }}</td>
+        <td>{{ a.total }}</td><td>{{ a.attended }}</td><td>{{ a.pct }}%</td>
+        <td><span class="badge bg-{{ 'success' if a.pct>=85 else ('warning text-dark' if a.pct>=75 else 'danger') }}">
+          {{ 'Good' if a.pct>=85 else ('Low' if a.pct>=75 else 'Critical') }}
+        </span></td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% elif section == 'timetable' %}
+  <h4 class="fw-bold mb-4"><i class="bi bi-clock me-2"></i>Weekly Timetable</h4>
+  <div class="card stat-card p-4 table-responsive">
+    <table class="table table-vtop table-bordered text-center mb-0">
+      <thead><tr><th>Day</th>{% for t in slot_times %}<th class="small">{{ t }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for row in timetable %}
+      <tr><td class="fw-semibold">{{ row.day }}</td>
+      {% for s in row.slots %}<td class="small">{{ s }}</td>{% endfor %}</tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% elif section == 'grades' %}
+  <h4 class="fw-bold mb-4"><i class="bi bi-award me-2"></i>Grade History</h4>
+  <div class="card stat-card p-4">
+    <table class="table table-vtop table-hover mb-0">
+      <thead><tr><th>Code</th><th>Course</th><th>Credits</th><th>Grade</th></tr></thead>
+      <tbody>
+      {% for g in grades %}
+      <tr><td class="fw-semibold">{{ g.code }}</td><td>{{ g.name }}</td><td>{{ g.credits }}</td>
+      <td><span class="badge bg-{{ 'success' if g.grade in ['S','A+','A'] else 'primary' }} fs-6">{{ g.grade }}</span></td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% elif section == 'profile' %}
+  <h4 class="fw-bold mb-4"><i class="bi bi-person me-2"></i>Student Profile</h4>
+  <div class="card stat-card p-4">
+    <div class="row">
+      <div class="col-md-3 text-center mb-4">
+        <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center" style="width:120px;height:120px">
+          <i class="bi bi-person-fill text-primary" style="font-size:3rem"></i>
+        </div>
+        <h5 class="mt-3 fw-bold">{{ student.name }}</h5>
+        <span class="badge bg-primary">{{ student.reg_no }}</span>
+      </div>
+      <div class="col-md-9">
+        <table class="table mb-0">
+          {% set fields = [("Program",student.program),("School",student.school),("Campus",student.campus),("Semester",student.semester),("Email",student.email),("Phone",student.phone),("CGPA",student.cgpa)] %}
+          {% for label, val in fields %}
+          <tr><th class="text-muted" style="width:30%">{{ label }}</th><td class="fw-semibold">{{ val }}</td></tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% elif section == 'fees' %}
+  <h4 class="fw-bold mb-4"><i class="bi bi-cash-stack me-2"></i>Fee Details</h4>
+  <div class="card stat-card p-4">
+    <table class="table table-vtop table-hover mb-0">
+      <thead><tr><th>Semester</th><th>Amount</th><th>Due Date</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Fall 2025</td><td>₹1,87,000</td><td>15 Jul 2025</td><td><span class="badge bg-success">Paid</span></td></tr>
+        <tr><td>Spring 2026</td><td>₹1,87,000</td><td>15 Jan 2026</td><td><span class="badge bg-success">Paid</span></td></tr>
+        <tr><td>Fall 2026</td><td>₹1,92,000</td><td>15 Jul 2026</td><td><span class="badge bg-warning text-dark">Pending</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  {% elif section == 'hallticket' %}
+  <h4 class="fw-bold mb-4"><i class="bi bi-card-text me-2"></i>Examination Hall Ticket</h4>
+  <div class="card stat-card p-4 text-center">
+    <i class="bi bi-file-earmark-text text-primary" style="font-size:4rem"></i>
+    <h5 class="mt-3 fw-bold">CAT-2 Examination — Spring 2026</h5>
+    <p class="text-muted">Hall ticket available for download</p>
+    <button class="btn btn-vtop"><i class="bi bi-download me-2"></i>Download Hall Ticket</button>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}

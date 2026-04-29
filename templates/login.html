@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Login - VTOP{% endblock %}
+{% block content %}
+<div class="login-wrapper">
+  <div class="container d-flex justify-content-center">
+    <div class="login-card card">
+      <div class="login-header">
+        <i class="bi bi-mortarboard-fill fs-1 mb-2 d-block"></i>
+        <h3>VTOP Login</h3>
+        <p class="mb-0 small opacity-75">Vellore Institute of Technology</p>
+      </div>
+      <div class="login-body">
+        <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+          <div class="mb-3">
+            <label class="form-label">Registration Number</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" name="reg_no" placeholder="e.g. 21BCE1234" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Date of Birth</label>
+              <input type="date" class="form-control" name="dob">
+            </div>
+            <div class="col-6">
+              <label class="form-label">OTP</label>
+              <input type="number" class="form-control" name="otp" placeholder="6-digit OTP">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-login mb-3">
+            <span class="spinner-border spinner-border-sm me-2" id="loginSpinner" role="status"></span>
+            <span id="btnText">Sign In</span>
+          </button>
+          <div class="text-center">
+            <a href="#" class="text-decoration-none small" style="color:var(--vit-blue)">Forgot Password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
