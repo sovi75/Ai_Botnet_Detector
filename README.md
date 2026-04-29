@@ -119,7 +119,7 @@ Backend and application running in development environment.
 Due to GitHub size limitations, large files such as datasets and trained models are not included in this repository.
 
 🔗 Download full project files:
-YOUR_GOOGLE_DRIVE_FOLDER_LINK
+https://drive.google.com/drive/folders/1vYuqgvy0T-5UZNK1wjfgUniN7aM1ii0D?usp=sharing
 
 ### 📁 Includes:
 - Trained Machine Learning Models (.pkl)
