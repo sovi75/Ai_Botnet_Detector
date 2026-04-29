@@ -112,6 +112,28 @@ Backend and application running in development environment.
 
 [Watch Demo Video](https://drive.google.com/file/d/1F-udr9hovMkUrIqWHj40HfoA8c3Knh6J/view?usp=sharing)
 
+---
+
+## 📥 Complete Project Files
+
+Due to GitHub size limitations, large files such as datasets and trained models are not included in this repository.
+
+🔗 Download full project files:
+YOUR_GOOGLE_DRIVE_FOLDER_LINK
+
+### 📁 Includes:
+- Trained Machine Learning Models (.pkl)
+- Dataset Files (.csv)
+- Additional resources required to run the project
+
+### ⚙️ Setup Instructions:
+1. Download the files from the link above  
+2. Extract (if zipped)  
+3. Place them in the project root directory  
+4. Run the application normally
+
+---
+
 ## 🧪 Experimental Setup
 
 * **PC 1:** Attacker system (simulated botnet traffic)
