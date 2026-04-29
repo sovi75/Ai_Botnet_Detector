@@ -1,6 +1,6 @@
-# 🤖 AI-Based Botnet Detection Using Network Flow Data
+# AI-Based Botnet Detection Using Network Flow Data
 
-### 🛡️ AI-Shield: Real-Time Explainable Botnet Detection System
+### 🛡️AI-Shield: Real-Time Explainable Botnet Detection System
 
 ---
 
