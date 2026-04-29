@@ -86,7 +86,7 @@ Streamlit Dashboard
 
 System operating under normal conditions with stable traffic.
 
-![Benign Traffic](images/benign.png)
+![Benign Traffic](images/benign.jpeg)
 
 ---
 
@@ -94,9 +94,9 @@ System operating under normal conditions with stable traffic.
 
 High packet rate detected. System flags malicious traffic.
 
-![Botnet Attack](images/botnet1.png)
-![Botnet Attack](images/botnet2.png)
-![Botnet Attack](images/botnet3.png)
+![Botnet Attack](images/botnet1.jpeg)
+![Botnet Attack](images/botnet2.jpeg)
+![Botnet Attack](images/botnet3.jpeg)
 
 ---
 
@@ -104,7 +104,7 @@ High packet rate detected. System flags malicious traffic.
 
 Backend and application running in development environment.
 
-![Code](images/code.png)
+![Code](images/code.jpeg)
 
 ---
 
