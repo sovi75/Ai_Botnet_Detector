@@ -108,6 +108,10 @@ Backend and application running in development environment.
 
 ---
 
+## 🎥 Demo Video
+
+[Watch Demo Video](https://drive.google.com/file/d/1F-udr9hovMkUrIqWHj40HfoA8c3Knh6J/view?usp=sharing)
+
 ## 🧪 Experimental Setup
 
 * **PC 1:** Attacker system (simulated botnet traffic)
