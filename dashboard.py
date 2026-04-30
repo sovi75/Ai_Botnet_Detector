@@ -1,7 +1,7 @@
 import streamlit as st
 import joblib
 import numpy as np
-from scapy.all import sniff, IP, TCP, UDP, conf
+#from scapy.all import sniff, IP, TCP, UDP, conf
 import threading
 import time
 from collections import defaultdict
