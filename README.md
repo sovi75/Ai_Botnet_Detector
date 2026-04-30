@@ -208,3 +208,9 @@ Large files such as datasets and trained models are excluded due to GitHub size 
 - **S Oviya** – 24BYB1105
 
 ---
+
+## Guide
+
+- **Dr. Swaminathan A**
+
+---
