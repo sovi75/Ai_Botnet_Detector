@@ -42,27 +42,21 @@ AI-Shield acts as an intelligent security layer that:
 ## 🏗️ System Architecture
 
 User / Attacker
-
       ↓
 
 Flask Web Application (VTOP Clone)
-
       ↓
 
 Packet Sniffer (Scapy)
-
       ↓
 
 Feature Extraction
-
       ↓
 
 ML Model (XGBoost)
-
       ↓
 
 SHAP Explainability
-
       ↓
 
 Streamlit Dashboard
