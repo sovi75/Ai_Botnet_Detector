@@ -11,6 +11,14 @@ It monitors incoming traffic, classifies it as **benign or malicious**, and prov
 
 ---
 
+## 🌐 Live Dashboard
+
+🔗 Click here to access the live AI Botnet Detection System:
+
+https://aibotnetdetector-ds3yatvdbwb3wjpqgsecdu.streamlit.app/
+
+---
+
 ## 🎯 Problem Statement
 
 Academic portals (like VTOP) often face heavy traffic during peak times.
@@ -148,13 +156,6 @@ https://drive.google.com/drive/folders/1vYuqgvy0T-5UZNK1wjfgUniN7aM1ii0D?usp=sha
 
 ---
 
-## 🌐 Live Dashboard
-
-🔗 Click here to access the live AI Botnet Detection System:
-
-https://aibotnetdetector-ds3yatvdbwb3wjpqgsecdu.streamlit.app/
-
----
 ## 🧪 Experimental Setup
 
 * **PC 1:** Attacker system (simulated botnet traffic)
